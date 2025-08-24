@@ -1,4 +1,4 @@
-const {
+ const {
   default: makeWASocket,
   DisconnectReason,
   fetchLatestBaileysVersion,
@@ -147,8 +147,6 @@ _Prefijo:_ ${PREFIX}
 • ${PREFIX}toimg – Sticker ➜ imagen
 • ${PREFIX}pfp [@] – Ver foto de perfil
 • ${PREFIX}fotogrupo – Ver foto del grupo
-
-SER BOT: 6tutoserbot (ESPERA MENOS DE 2 MINUTOTES DESPUES DE USAR EL COMANDO JEJEJE)
 
 🔎 *Utilidades*
 • ${PREFIX}buscar <tema> – Wikipedia
@@ -323,6 +321,45 @@ await sock.sendMessage(from, { image: pngBuffer }, { quoted: msg })
           }
           break
         }
+
+case "code": {
+    let pasos = `
+╭━━━〔 *📌 PASOS PARA TENER EL BOT DESDE TERMUX* 〕━━━╮
+
+1️⃣ Abrir *Termux* y poner:
+   👉 termux-setup-storage
+   (Dar acceso a todos los archivos)
+
+2️⃣ Actualizar paquetes:
+   👉 pkg update && pkg upgrade -y
+
+3️⃣ Instalar dependencias:
+   👉 pkg install git nodejs ffmpeg wget imagemagick -y
+
+4️⃣ Clonar el repositorio:
+   👉 git clone https://github.com/kevinra4012x/LiteBot.git
+
+5️⃣ Entrar a la carpeta:
+   👉 cd LiteBot
+
+6️⃣ Instalar módulos:
+   👉 npm install
+
+7️⃣ Iniciar el bot:
+   👉 node index.js
+
+⚠️ Si aparece una pregunta con (y/i/n/o/d/Z)  
+   🔑 Escribir siempre: *y*
+
+╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯
+    `
+    await sock.sendMessage(from, { text: pasos }, { quoted: msg })
+}
+break
+
+
+
+
         case 'fotogrupo': {
           if (!isGroup) return sendText(sock, from, '📌 Este comando solo funciona en grupos.')
           try {
@@ -333,91 +370,6 @@ await sock.sendMessage(from, { image: pngBuffer }, { quoted: msg })
           }
           break
         }
-
-        case 'tutousarbot': {
-          try {
-            const filePath = path.join(__dirname, 'tutousarbot', 'usarbot.mp4') // ajusta el nombre del archivo dentro de la carpeta
-            if (!fs.existsSync(filePath)) {
-              return sendText(sock, from, '❌ No se encontró el archivo en ./tutousarbot/')
-            }
-
-            await sock.sendMessage(from, {
-              video: { url: filePath },
-              caption: '🎉 Disfruta el bot'
-            }, { quoted: msg })
-
-          } catch (e) {
-            console.log(symbols.error, chalk.red('❌ Error enviando tutousarbot:'), e)
-            await sendText(sock, from, '⚠️ Error enviando el video del bot.')
-          }
-          break
-        }
-
-
-        case 'tutoserbot': {
-          try {
-            const filePath = path.join(__dirname, 'tutoserbot', 'tutorial.mp4') // ajusta nombre del archivo dentro de la carpeta
-            if (!fs.existsSync(filePath)) {
-              return sendText(sock, from, '❌ No se encontró el archivo del tutorial en ./tutoserbot/')
-            }
-
-            const caption = `
-TUTORIAL REALISTA:
-
-PON 6adquerir para tener el enlace de descarga
-
-ENTRA A ESTE GRUPO PARA PODER USAR EL COMANDO 6adquerir: https://chat.whatsapp.com/FuGck66uQf1JtF372z18FC?mode=ems_copy_t
-
-texto del video:
-
-pkg update && pkg upgrade -y
-pkg install nodejs -y
-
-AUXILIAR: npm install protobufjs
-
-INSTALACION DE BAILEYS: npm install @whiskeysockets/baileys
-INSTALACION DE GIT: pkg install git -y
-
-DESPLAZAMIENTOS: (COPIAR TODO ESO COMPLETO)
-
-# 1️⃣ Crear carpeta interna para el bot
-mkdir -p ~/litebot
-
-# 2️⃣ Copiar todo el contenido de la carpeta actual (externa) a la carpeta interna
-cp -r . ~/litebot/
-
-# 3️⃣ Entrar a la nueva carpeta interna
-cd ~/litebot
-
-# 4️⃣ Verificar que los archivos se copiaron
-ls
-
-INSTALACION DEL QR: npm install qr-terminal
-
-INSTALACION DEPENDENCIAS RESTANTES: npm install @whiskeysockets/baileys qrcode-terminal pino fs-extra axios moment mathjs translate-google-api chalk log-symbols
-
-INSTALACION DE JIMP: npm install jimp
-
-arreglo de chalk: npm uninstall chalk
-npm install chalk@4
-
-*VE EL VIDEO, SIGUE LAS INDICACIONES Y OBTEN TU BOT*
-
-*USA EL COMANDO 6tutousarbot para saber como manejarlo. (espera medio minuto despues de usarlo)*
-            `.trim()
-
-            await sock.sendMessage(from, {
-              video: { url: filePath },
-              caption
-            }, { quoted: msg })
-
-          } catch (e) {
-            console.log(symbols.error, chalk.red('❌ Error enviando tutorial:'), e)
-            await sendText(sock, from, '⚠️ Error enviando el tutorial.')
-          }
-          break
-        }
-
 
         // === UTILIDADES ===
         case 'traducir': {
